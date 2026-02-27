@@ -1,0 +1,12 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "image.v2",
+    "payload": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg"
+    }
+  }
+}
+

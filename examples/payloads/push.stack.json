@@ -1,0 +1,21 @@
+﻿{
+  "target": {
+    "nickname": "Lobby-1"
+  },
+  "slot": "primary",
+  "op": "REPLACE",
+  "templateId": "stack.v2",
+  "data": {
+    "title": "Shift Summary",
+    "blocks": [
+      {
+        "templateId": "document.v2",
+        "data": { "title": "Overview", "content": "Short summary for the lobby display." }
+      },
+      {
+        "templateId": "alert.v2",
+        "data": { "title": "Reminder", "message": "Full details are in AI Workspace.", "level": "info" }
+      }
+    ]
+  }
+}

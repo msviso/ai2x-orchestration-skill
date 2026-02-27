@@ -1,0 +1,10 @@
+﻿{
+  "$id": "https://microsense.ai/schemas/ai2x/templates/pdf.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "url"],
+  "properties": {
+    "title": { "type": "string", "minLength": 1 },
+    "url": { "type": "string", "minLength": 1 }
+  }
+}

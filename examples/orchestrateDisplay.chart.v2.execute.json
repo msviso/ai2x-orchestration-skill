@@ -1,0 +1,16 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "chart.v2",
+    "payload": {
+      "type": "line",
+      "x": { "labels": ["Mon"] },
+      "series": [
+        { "name": "Visitors", "data": [120] }
+      ]
+    }
+  }
+}
+

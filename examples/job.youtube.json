@@ -1,0 +1,9 @@
+{
+  "templateId": "youtube.v2",
+  "data": {
+    "title": "YouTube Example",
+    "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+    "start": 0,
+    "loop": true
+  }
+}

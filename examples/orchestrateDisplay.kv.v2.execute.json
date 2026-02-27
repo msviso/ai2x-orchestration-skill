@@ -1,0 +1,15 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "kv.v2",
+    "payload": {
+      "title": "Key Metrics",
+      "items": [
+        { "key": "Queue", "value": "3" }
+      ]
+    }
+  }
+}
+

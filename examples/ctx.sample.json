@@ -1,0 +1,18 @@
+{
+  "_comment": "Sample ctx with placeholders only. Never use real tokens here.",
+  "requestId": "ctx-sample-1",
+  "ownerScope": {
+    "_comment": "Replace with your tenant/user IDs.",
+    "tenantId": "t-demo",
+    "userId": "u-demo"
+  },
+  "_comment_userToken": "Replace with a real token at runtime; do not commit real tokens.",
+  "userToken": "TOKEN_PLACEHOLDER",
+  "uiContext": {
+    "_comment": "Optional UI hints for routing/display selection.",
+    "environment": "public",
+    "locale": "en-US",
+    "timezone": "UTC",
+    "requestedDisplayNickname": "Lobby-1"
+  }
+}

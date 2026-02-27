@@ -1,0 +1,14 @@
+﻿{
+  "$id": "https://microsense.ai/schemas/ai2x/templates/image.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["url"],
+  "properties": {
+    "url": { "type": "string", "minLength": 1 },
+    "title": { "type": "string" },
+    "caption": { "type": "string" },
+    "source": { "type": "string" },
+    "fit": { "type": "string", "enum": ["cover", "contain", "fill", "none", "scale-down"] },
+    "bg": { "type": "string" }
+  }
+}

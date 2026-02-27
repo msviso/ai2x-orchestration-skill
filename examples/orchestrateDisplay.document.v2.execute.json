@@ -1,0 +1,12 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "document.v2",
+    "title": "Daily Update",
+    "body": "Hello from AI2X",
+    "sensitivity": "medium"
+  }
+}
+

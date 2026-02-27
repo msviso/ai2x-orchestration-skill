@@ -1,0 +1,27 @@
+{
+  "name": "ai2x-skill",
+  "version": "0.1.0",
+  "description": "AI2X Multi-Display Skill for deterministic, schema-governed display discovery and safe content pushing.",
+  "license": "Private Beta – Internal/Evaluation use only. No redistribution.",
+  "type": "module",
+  "main": "src/index.ts",
+  "bin": {
+    "ai2x": "dist/bin/ai2x.js"
+  },
+  "scripts": {
+    "prebuild": "node scripts/write-build-info.cjs",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.json && node scripts/copy-contracts.cjs"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^3.0.1",
+    "commander": "^12.0.0",
+    "undici": "^6.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}

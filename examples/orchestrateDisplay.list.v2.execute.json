@@ -1,0 +1,13 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "list.v2",
+    "payload": {
+      "title": "Next Steps",
+      "items": ["Ship v2"]
+    }
+  }
+}
+

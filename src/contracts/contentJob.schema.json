@@ -1,0 +1,43 @@
+﻿{
+  "$id": "https://microsense.ai/schemas/ai2x/contentJob.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["target", "slot", "op", "templateId", "data"],
+  "properties": {
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assignmentId": { "type": "string" },
+        "nickname": { "type": "string" }
+      }
+    },
+    "slot": {
+      "type": "string",
+      "enum": ["primary", "ticker", "left", "right"]
+    },
+    "op": {
+      "type": "string",
+      "enum": ["REPLACE", "APPEND"]
+    },
+    "templateId": {
+      "type": "string",
+      "enum": [
+        "document.v2",
+        "stack.v2",
+        "cards.v2",
+        "pdf.v2",
+        "image.v2",
+        "imageGallery.v1",
+        "imageList.v1",
+        "list.v2",
+        "kv.v2",
+        "ticker.v2",
+        "chart.v2",
+        "alert.v2",
+        "youtube.v2"
+      ]
+    },
+    "data": { "type": "object", "additionalProperties": true }
+  }
+}

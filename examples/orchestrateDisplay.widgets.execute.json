@@ -1,0 +1,20 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "widgets": [
+      {
+        "slot": "primary",
+        "template": "document.v2",
+        "data": { "title": "Hello", "body": "World" }
+      },
+      {
+        "slot": "ticker",
+        "template": "ticker.v2",
+        "data": { "text": "News flash..." }
+      }
+    ]
+  }
+}
+

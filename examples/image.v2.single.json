@@ -1,0 +1,10 @@
+{
+  "target": { "assignmentId": "as_1234567890" },
+  "slot": "primary",
+  "op": "REPLACE",
+  "templateId": "image.v2",
+  "data": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg",
+    "title": "Single Image"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "target": { "assignmentId": "as_1234567890" },
+  "slot": "primary",
+  "op": "REPLACE",
+  "templateId": "imageGallery.v1",
+  "data": {
+    "layout": "grid",
+    "images": [
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg",
+        "title": "Fronalpstock"
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Broadway_tower_edit.jpg",
+        "title": "Broadway Tower"
+      }
+    ]
+  }
+}

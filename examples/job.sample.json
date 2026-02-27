@@ -1,0 +1,13 @@
+﻿{
+  "target": {
+    "nickname": "Lobby-1"
+  },
+  "slot": "primary",
+  "op": "REPLACE",
+  "templateId": "document.v2",
+  "data": {
+    "title": "Welcome",
+    "content": "This is a safe sample payload for CLI testing.",
+    "bullets": ["Short", "Governed", "Display-safe"]
+  }
+}

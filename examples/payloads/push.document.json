@@ -1,0 +1,17 @@
+﻿{
+  "target": {
+    "nickname": "Lobby-1"
+  },
+  "slot": "primary",
+  "op": "REPLACE",
+  "templateId": "document.v2",
+  "data": {
+    "title": "Daily Brief",
+    "content": "Welcome to AI2X. Key updates are summarized below.",
+    "bullets": [
+      "Visitor check-in is active",
+      "Operations are normal",
+      "See AI Workspace for full report"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "alert.v2",
+    "payload": {
+      "title": "Notice",
+      "message": "Please check the workspace for details.",
+      "level": "info"
+    }
+  }
+}
+

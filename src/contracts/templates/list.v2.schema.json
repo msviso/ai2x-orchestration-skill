@@ -1,0 +1,26 @@
+﻿{
+  "$id": "https://microsense.ai/schemas/ai2x/templates/list.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["items"],
+  "properties": {
+    "title": { "type": "string" },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "label": { "type": "string" },
+              "desc": { "type": "string" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+﻿{
+  "target": {
+    "nickname": "Lobby-1"
+  },
+  "slot": "primary",
+  "op": "REPLACE",
+  "templateId": "alert.v2",
+  "data": {
+    "title": "Display Notice",
+    "message": "Please return to Microsense Vision AI Workspace for full details.",
+    "level": "warning"
+  }
+}

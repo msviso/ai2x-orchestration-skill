@@ -1,0 +1,25 @@
+name: release-tarball
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-tarball:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate package-lock.json (if missing)
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Build release tarball
+        run: bash scripts/release-tar.sh
+
+      - name: List tarball contents
+        run: tar -tzf ai2x-skill-release.tgz | head -n 20

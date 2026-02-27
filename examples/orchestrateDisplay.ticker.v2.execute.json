@@ -1,0 +1,12 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "ticker.v2",
+    "payload": {
+      "text": "System status: normal"
+    }
+  }
+}
+

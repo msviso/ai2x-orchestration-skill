@@ -1,0 +1,15 @@
+﻿{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "cards.v2",
+    "payload": {
+      "title": "Weather Highlights",
+      "items": [
+        { "title": "Now", "description": "Cloudy 15C", "meta": "Humidity 88% | ENE 15km/h" },
+        { "title": "Tue", "description": "Showers 13-14C", "meta": "Rain 100%" }
+      ]
+    }
+  }
+}

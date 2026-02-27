@@ -1,0 +1,9 @@
+{
+  "$id": "https://microsense.ai/schemas/ai2x/revokeAssignmentInput.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["assignmentId"],
+  "properties": {
+    "assignmentId": { "type": "string", "minLength": 1 }
+  }
+}

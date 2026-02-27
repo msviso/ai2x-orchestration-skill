@@ -1,0 +1,15 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "templateId": "stack.v2",
+    "title": "Stack Example",
+    "blocks": [
+      { "kind": "document", "title": "Summary", "body": "Hello stack.v2" },
+      { "kind": "kv", "title": "KPIs", "items": [ { "k": "Queue", "v": "3" } ] },
+      { "kind": "list", "title": "Next", "rows": ["Ship v2", "Review logs"] }
+    ],
+    "mode": "execute"
+  }
+}
+

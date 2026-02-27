@@ -1,0 +1,9 @@
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "templateId": "image.v2",
+    "payload": { "url": "https://example.com/a.png" },
+    "mode": "preview"
+  }
+}
+

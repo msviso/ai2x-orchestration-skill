@@ -1,0 +1,24 @@
+﻿{
+  "$id": "https://microsense.ai/schemas/ai2x/templates/cards.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "items"],
+  "properties": {
+    "title": { "type": "string", "minLength": 1 },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "meta": { "type": "string" },
+          "imageUrl": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+﻿{
+  "$id": "https://microsense.ai/schemas/ai2x/ctx.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["requestId", "ownerScope", "userToken"],
+  "properties": {
+    "requestId": { "type": "string", "minLength": 1 },
+    "ownerScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tenantId", "userId"],
+      "properties": {
+        "tenantId": { "type": "string", "minLength": 1 },
+        "userId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "userToken": { "type": "string", "minLength": 1 },
+    "mcpBaseUrl": { "type": "string", "minLength": 1 },
+    "uiContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "locale": { "type": "string" },
+        "timezone": { "type": "string" },
+        "requestedDisplayNickname": { "type": "string" },
+        "environment": {
+          "type": "string",
+          "enum": ["unknown", "private", "shared", "public"]
+        }
+      }
+    }
+  }
+}

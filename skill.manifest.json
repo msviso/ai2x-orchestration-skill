@@ -1,0 +1,417 @@
+{
+  "schemaVersion": "1.0",
+  "skill": {
+    "name": "ai2x",
+    "displayName": "AI2X Multi-Display Skill",
+    "version": "0.1.0",
+    "description": "A deterministic, schema-governed skill that enables agents to discover displays and safely push structured content to multi-display environments via MCP.",
+    "vendor": {
+      "name": "Microsense Vision Co., Ltd.",
+      "product": "AI2X",
+      "copyright": "(c) Microsense Vision Co., Ltd."
+    },
+    "runtime": {
+      "language": "typescript",
+      "entry": "src/index.ts",
+      "exports": [
+        "list_displays",
+        "help",
+        "orchestrate_display",
+        "push_content",
+        "claim_display",
+        "revoke_assignment",
+        "renew_assignment"
+      ],
+      "node": {
+        "minVersion": "20"
+      }
+    },
+    "security": {
+      "tokenHeader": "x-user-token",
+      "dataHandling": [
+        "public-by-default",
+        "no-secrets-in-repo",
+        "schema-validated-output"
+      ],
+      "sideEffects": [
+        "may_push_to_public_displays"
+      ]
+    },
+    "governance": {
+      "defaultPolicy": "public_safe_by_default",
+      "degradeStrategy": "alert_or_summary",
+      "workspacePointerText": "Please return to AI Workspace to view full details."
+    }
+  },
+  "contracts": {
+    "schemas": {
+      "runtimeContext": "src/contracts/ctx.schema.json",
+      "normalizedDisplay": "src/contracts/display.schema.json",
+      "contentJob": "src/contracts/contentJob.schema.json",
+      "claimDisplayInput": "src/contracts/claimDisplayInput.schema.json",
+      "revokeAssignmentInput": "src/contracts/revokeAssignmentInput.schema.json",
+      "renewAssignmentInput": "src/contracts/renewAssignmentInput.schema.json",
+      "orchestrateDisplayInput": "src/contracts/orchestrateDisplayInput.schema.json"
+    },
+    "templates": {
+      "allowlist": [
+        "document.v2",
+        "stack.v2",
+        "cards.v2",
+        "pdf.v2",
+        "image.v2",
+        "imageGallery.v1",
+        "imageList.v1",
+        "list.v2",
+        "kv.v2",
+        "ticker.v2",
+        "chart.v2",
+        "alert.v2",
+        "youtube.v2"
+      ],
+      "schemaMap": {
+        "document.v2": "src/contracts/templates/document.v2.schema.json",
+        "stack.v2": "src/contracts/templates/stack.v2.schema.json",
+        "cards.v2": "src/contracts/templates/cards.v2.schema.json",
+        "pdf.v2": "src/contracts/templates/pdf.v2.schema.json",
+        "image.v2": "src/contracts/templates/image.v2.schema.json",
+        "imageGallery.v1": "src/contracts/templates/imageGallery.v1.schema.json",
+        "imageList.v1": "src/contracts/templates/imageList.v1.schema.json",
+        "list.v2": "src/contracts/templates/list.v2.schema.json",
+        "kv.v2": "src/contracts/templates/kv.v2.schema.json",
+        "ticker.v2": "src/contracts/templates/ticker.v2.schema.json",
+        "chart.v2": "src/contracts/templates/chart.v2.schema.json",
+        "alert.v2": "src/contracts/templates/alert.v2.schema.json",
+        "youtube.v2": "src/contracts/templates/youtube.v2.schema.json"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "ai2x.list_displays",
+      "export": "list_displays",
+      "description": "List displays available to the current user scope, returned in normalized shape.",
+      "sideEffect": "none",
+      "inputSchemaRef": "src/contracts/ctx.schema.json",
+      "output": {
+        "type": "object",
+        "required": [
+          "ok",
+          "displays"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "displays": {
+            "type": "array",
+            "items": {
+              "$ref": "src/contracts/display.schema.json"
+            }
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "name": "ai2x.help",
+      "export": "help",
+      "description": "Provide onboarding guidance for AI2X pairing, display entry, and support contacts.",
+      "sideEffect": "none",
+      "inputSchemaRef": "src/contracts/ctx.schema.json",
+      "output": {
+        "type": "object",
+        "required": [
+          "ok",
+          "project",
+          "vendor",
+          "what",
+          "displayEntryUrl",
+          "pairing",
+          "support",
+          "notes"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "project": {
+            "type": "string"
+          },
+          "vendor": {
+            "type": "string"
+          },
+          "what": {
+            "type": "string"
+          },
+          "displayEntryUrl": {
+            "type": "string"
+          },
+          "pairing": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "support": {
+            "type": "object",
+            "required": [
+              "email",
+              "referenceSite"
+            ],
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "referenceSite": {
+                "type": "string"
+              }
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ai2x.orchestrate_display",
+      "export": "orchestrate_display",
+      "description": "Build a safe, deterministic display plan and optionally deliver it via MCP orchestrateDisplay (preferred).",
+      "sideEffect": "orchestrate_display",
+      "input": {
+        "type": "object",
+        "required": [
+          "ctx",
+          "input"
+        ],
+        "properties": {
+          "ctx": {
+            "$ref": "src/contracts/ctx.schema.json"
+          },
+          "input": {
+            "$ref": "src/contracts/orchestrateDisplayInput.schema.json"
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "tool": {
+            "type": "string"
+          },
+          "result": {
+            "type": "object"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "name": "ai2x.push_content",
+      "export": "push_content",
+      "description": "Resolve target display, validate template payload, apply governance, then push content via MCP.",
+      "sideEffect": "push_content",
+      "input": {
+        "type": "object",
+        "required": [
+          "ctx",
+          "job"
+        ],
+        "properties": {
+          "ctx": {
+            "$ref": "src/contracts/ctx.schema.json"
+          },
+          "job": {
+            "$ref": "src/contracts/contentJob.schema.json"
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "pushed": {
+            "type": "object"
+          },
+          "degraded": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "target": {
+            "type": "object",
+            "properties": {
+              "assignmentId": {
+                "type": "string"
+              },
+              "nickname": {
+                "type": "string"
+              },
+              "slot": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ai2x.claim_display",
+      "export": "claim_display",
+      "description": "Claim a display using a pairing code and return assignment details.",
+      "sideEffect": "claim_display",
+      "input": {
+        "type": "object",
+        "required": [
+          "ctx",
+          "input"
+        ],
+        "properties": {
+          "ctx": {
+            "$ref": "src/contracts/ctx.schema.json"
+          },
+          "input": {
+            "$ref": "src/contracts/claimDisplayInput.schema.json"
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "assignmentId": {
+            "type": "string"
+          },
+          "nickname": {
+            "type": "string"
+          },
+          "display": {
+            "$ref": "src/contracts/display.schema.json"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "name": "ai2x.revoke_assignment",
+      "export": "revoke_assignment",
+      "description": "Revoke an assignment by assignmentId.",
+      "sideEffect": "revoke_assignment",
+      "input": {
+        "type": "object",
+        "required": [
+          "ctx",
+          "input"
+        ],
+        "properties": {
+          "ctx": {
+            "$ref": "src/contracts/ctx.schema.json"
+          },
+          "input": {
+            "$ref": "src/contracts/revokeAssignmentInput.schema.json"
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "required": [
+          "ok",
+          "assignmentId"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "assignmentId": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "name": "ai2x.renew_assignment",
+      "export": "renew_assignment",
+      "description": "Renew an assignment lease by assignmentId.",
+      "sideEffect": "renew_assignment",
+      "input": {
+        "type": "object",
+        "required": [
+          "ctx",
+          "input"
+        ],
+        "properties": {
+          "ctx": {
+            "$ref": "src/contracts/ctx.schema.json"
+          },
+          "input": {
+            "$ref": "src/contracts/renewAssignmentInput.schema.json"
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "required": [
+          "ok",
+          "assignmentId"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "assignmentId": {
+            "type": "string"
+          },
+          "leaseUntil": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "observability": {
+    "traceFields": [
+      "requestId",
+      "tenantId",
+      "userId"
+    ],
+    "logRedaction": [
+      "userToken"
+    ]
+  }
+}
