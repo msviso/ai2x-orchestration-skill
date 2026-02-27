@@ -73,6 +73,9 @@ Reference: www.msviso.com
 
 Microsense Vision positions the display as a presentation surface, not a private inbox. This skill keeps full details in Microsense Vision AI Workspace and pushes only governed summaries to screens.
 
+## Demo Video
+https://youtu.be/veV3vu8Kfys
+
 ## Quick Start
 ```bash
 pnpm install
