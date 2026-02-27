@@ -79,6 +79,15 @@ pnpm install
 pnpm test
 ```
 
+## Direct Download (prebuilt)
+We provide a ready-to-use release archive. Download the latest `ai2x-skill-release.tgz` from GitHub Releases and extract it.
+
+```bash
+tar -xzf ai2x-skill-release.tgz
+```
+
+See `docs/OPENCLAW_USER_CASES.md` for OpenClaw usage examples.
+
 ## orchestrateDisplay Quick Start (Preferred)
 ~~~json
 {
