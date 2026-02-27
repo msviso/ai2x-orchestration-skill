@@ -180,6 +180,35 @@ Use placeholders when testing:
 - `assignmentId`: `as_123...`
 - `MCP_BASE_URL`: `mcp.example.com`
 
+## CTX Setup (Write & Storage)
+`ctx.json` holds tenant/user/token and is **required** for list/push/orchestrate calls.
+
+### Option A — Interactive (recommended)
+```bash
+node dist/bin/ai2x.js init
+# or specify a path
+node dist/bin/ai2x.js init --ctx ./ctx.json
+```
+
+### Option B — Manual write
+Create a file and **never** commit real tokens:
+```json
+{
+  "tenantId": "t_123",
+  "userId": "u_456",
+  "userToken": "<TOKEN>",
+  "mcpBaseUrl": "https://md-mcp-xxxx.aixlab.cc/mcp"
+}
+```
+
+Default paths:
+- Linux/macOS: `~/.config/ai2x/ctx.json`
+- Windows: `%APPDATA%\ai2x\ctx.json`
+
+Permissions:
+- Linux/macOS: `chmod 600 ~/.config/ai2x/ctx.json`
+- Windows: keep in user profile only
+
 ## Environment Variables
 - `MCP_BASE_URL` (required): MCP base URL including `/mcp` path (example: md-mcp.example.com/mcp).
 
@@ -232,9 +261,9 @@ Minimal cards.v2 example:
   "op": "REPLACE",
   "templateId": "cards.v2",
   "data": {
-    "title": "????",
+    "title": "Daily Highlights",
     "items": [
-      { "title": "????", "description": "�Ьd??????????, "meta": "??�s???? 10:00" }
+      { "title": "Key Update", "description": "Short summary text.", "meta": "Update 10:00" }
     ]
   }
 }
@@ -250,8 +279,8 @@ push_content is a legacy/manual override path for fully custom board payloads th
 - Private environments pass through validated payloads without modification.
 
 ## License
-Private Beta ??Internal/Evaluation use only. No redistribution.
+Private Beta — Internal/Evaluation use only. No redistribution.
 
-c Microsense Vision Co., Ltd.
+© Microsense Vision Co., Ltd.
 
 
