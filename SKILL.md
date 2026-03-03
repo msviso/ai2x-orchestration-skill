@@ -9,6 +9,24 @@ description: AI2X multi-display orchestration + governed content push via MCP fo
 - Pair codes are one-time/short-lived. If claim fails: refresh `https://AI2X.link` on the display to get a new code.
 - Renew is NOT automatic. Call `renew_assignment` while the user is still viewing the screen.
 
+## Context (MCP) Setup
+This skill reads MCP settings from `ctx.json` (after `init`). Once `ctx.json` exists, agents **should not ask** for token again.
+
+**Init (recommended):**
+```bash
+node dist/bin/ai2x.js init --ctx ./ctx.json
+```
+
+**Environment variable (optional):**
+```bash
+export AI2X_CTX_PATH=/path/to/ctx.json
+```
+
+**Required fields in ctx.json:**
+- `mcpBaseUrl` (example: `https://md-mcp-97542939.aixlab.cc/mcp`)
+- `userToken`
+- `tenantId` / `userId`
+
 ## Tools (this skill copy is namespaced)
 - `ai2x.claim_display(ctx, {pairCode, nickname?})`
 - `ai2x.renew_assignment(ctx, {assignmentId, leaseMs?})`
