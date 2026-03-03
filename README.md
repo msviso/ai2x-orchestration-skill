@@ -78,6 +78,8 @@ https://youtu.be/veV3vu8Kfys
 
 ## Quick Start
 ```bash
+git clone https://github.com/msviso/ai2x-orchestration-skill.git
+cd ai2x-orchestration-skill
 pnpm install
 pnpm test
 ```
