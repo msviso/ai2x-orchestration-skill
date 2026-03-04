@@ -60,3 +60,15 @@ Suggested chat flow:
 ## References
 - See `references/ORCHESTRATE_DISPLAY_SHAPES.md` for exact input shapes and copy-paste examples.
 - See `references/MULTI_AGENT_PLAYBOOK.md` for coordination patterns and failure handling.
+
+## ✅ Demo asset sources (avoid hallucinated URLs)
+When showing images, use verified direct URLs (raw media), not AI-generated or redirect links.
+Recommended source:
+- https://github.com/ServiceStack/images/tree/master/hero
+Raw URL format:
+- https://raw.githubusercontent.com/ServiceStack/images/master/hero/<filename>.jpg
+
+See examples:
+- examples/image.v2.servicestack.json
+- examples/imageGallery.v1.servicestack.json
+- examples/youtube.v2.demo.json

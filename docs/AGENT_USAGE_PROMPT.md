@@ -112,3 +112,12 @@ If content is sensitive or complex, you should:
 3) Call `push_content` to deliver governed output.
 
 Microsense Vision AI Workspace is the source of truth for full details. Displays should receive only the curated summary.
+
+### Image & video demo guidance
+- Prefer verified real assets (no hallucinated URLs).
+- Use ServiceStack hero gallery (raw URLs): https://github.com/ServiceStack/images/tree/master/hero
+- Use direct raw URLs, not GitHub tree links.
+- Demo YouTube sources:
+  - AI2X Concept Demo — https://youtu.be/veV3vu8Kfys
+  - Explain about the AI2X — https://youtu.be/oXdx0CCrN-s
+  - hTC Vive Glasses showcase — https://youtu.be/OWeaUTQ5JJ0

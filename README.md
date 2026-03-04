@@ -461,3 +461,15 @@ Private Beta — Internal/Evaluation use only. No redistribution.
 © Microsense Vision Co., Ltd.
 
 
+
+## Recommended Real-Image Sources (Avoid AI Hallucinated URLs)
+When you need images for demos, use known real assets. Example source:
+- ServiceStack hero gallery (browse): https://github.com/ServiceStack/images/tree/master/hero
+- Use raw URLs (direct media):
+  - https://raw.githubusercontent.com/ServiceStack/images/master/hero/black-white-city.jpg
+  - https://raw.githubusercontent.com/ServiceStack/images/master/hero/photo-1421789665209-c9b2a435e3dc.jpg
+
+New examples:
+- examples/image.v2.servicestack.json
+- examples/imageGallery.v1.servicestack.json
+- examples/youtube.v2.demo.json

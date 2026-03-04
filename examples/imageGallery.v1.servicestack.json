@@ -1,0 +1,27 @@
+{
+  "target": { "assignmentId": "as_1234567890" },
+  "slot": "primary",
+  "op": "REPLACE",
+  "templateId": "imageGallery.v1",
+  "data": {
+    "layout": "grid",
+    "images": [
+      {
+        "url": "https://raw.githubusercontent.com/ServiceStack/images/master/hero/black-white-city.jpg",
+        "title": "black-white-city"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/ServiceStack/images/master/hero/photo-1421789665209-c9b2a435e3dc.jpg",
+        "title": "photo-1421789665209"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/ServiceStack/images/master/hero/photo-1422207134147-65fb81f59e38.jpg",
+        "title": "photo-1422207134147"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/ServiceStack/images/master/hero/photo-1422360902398-0a91ff2c1a1f.jpg",
+        "title": "photo-1422360902398"
+      }
+    ]
+  }
+}
