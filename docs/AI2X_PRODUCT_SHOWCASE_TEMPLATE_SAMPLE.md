@@ -218,9 +218,9 @@ openclaw job create \
 5. 結束後清除 demo token。
 
 ### 12.3 聯絡窗口（示例）
-- 產品：Nova（nova@ai2x.io）
-- 技術：Orion（orion@ai2x.io）
-- 行銷：Echo（echo@ai2x.io）
+- 產品：Nova（nova@ai2xlab.com）
+- 技術：Orion（orion@ai2xlab.com）
+- 行銷：Echo（echo@ai2xlab.com）
 
 ---
 
