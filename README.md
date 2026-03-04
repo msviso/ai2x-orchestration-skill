@@ -450,6 +450,11 @@ push_content is a legacy/manual override path for fully custom board payloads th
 - Medium-risk content is summarized into a short `document.v2`.
 - Private environments pass through validated payloads without modification.
 
+### Display environment metadata (auto override)
+- `list_displays` now surfaces governance hints (environment/defaultEnvironment/environmentHint/environmentTag/deploymentEnvironment/locationEnvironment). When present on the device record (root) or nested under `assignmentMeta`, `deviceMeta`, `metadata`, or `capabilities`, the skill overrides `ctx.uiContext.environment` before schema validation and governance.
+- `push_content` applies the resolved display's environment, while `orchestrate_display` (single calls and sequences) picks the strictest target environment (ordering: private > shared > public > unknown). Mixed targets therefore degrade to the least-trusted scope.
+- When no metadata is provided, the ctx.json value remains in effect, so there are no silent upgrades to private scopes without an explicit declaration.
+
 ## License
 Private Beta — Internal/Evaluation use only. No redistribution.
 

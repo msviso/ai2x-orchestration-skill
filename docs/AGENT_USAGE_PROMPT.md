@@ -86,7 +86,7 @@ Example:
 
 ## Governance and Privacy
 - Displays are presentation surfaces, not private inboxes.
-- Treat the environment as public by default unless explicitly marked private.
+- Treat the environment as public by default unless display metadata marks it private/shared (the skill now auto-syncs metadata hints into ctx).
 - If content might contain sensitive details, prefer summary language.
 
 ## Display Targeting Strategy

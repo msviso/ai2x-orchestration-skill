@@ -17,6 +17,7 @@ From `listDisplays` response devices[]:
 - `deviceId` -> `NormalizedDisplay.displayId`
 - `nickname` -> `NormalizedDisplay.nickname`
 - `status` -> `NormalizedDisplay.status`
+- Environment hints (`environment`, `defaultEnvironment`, `environmentHint`, `environmentTag`, `deploymentEnvironment`, `locationEnvironment`) found on the device root or within `assignmentMeta`/`deviceMeta`/`metadata`/`capabilities` -> `NormalizedDisplay.environment`
 - Security fields (`trustTier`, `trustLevel`, `riskLevel`, `matchedRule`, `trustNote`, `ip`, `deviceMeta`, `connected`, `lastSeen`) -> `NormalizedDisplay.capabilities`
 
 ## MCP Tool Mapping

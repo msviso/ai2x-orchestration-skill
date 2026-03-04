@@ -9,6 +9,7 @@ import {
 import { listDisplaysHandler } from "./listDisplays.js";
 import { resolveTarget } from "./resolveTarget.js";
 import { pushContent as mcpPushContent } from "../mcp/tools.js";
+import { applyEnvironmentToContext } from "../utils/environment.js";
 
 type McpEnvelope = {
   ok?: boolean;
@@ -34,9 +35,11 @@ export async function pushContentHandler(
     return { ok: false, reason: "NO_DISPLAYS" };
   }
 
+  const ctxForTarget = applyEnvironmentToContext(ctx, target.environment);
+
   const validation = validateTemplate(job.templateId, job.data);
   let governed = validation.ok
-    ? applyGovernance(ctx, job.templateId, job.data)
+    ? applyGovernance(ctxForTarget, job.templateId, job.data)
     : applyValidationFallback();
 
   if (!validation.ok) {
@@ -48,7 +51,7 @@ export async function pushContentHandler(
       ? normalizeDocumentV2Data(governed.data)
       : governed.data;
 
-  const response = (await mcpPushContent(ctx, {
+  const response = (await mcpPushContent(ctxForTarget, {
     assignmentId: target.assignmentId,
     slot: job.slot,
     op: job.op,

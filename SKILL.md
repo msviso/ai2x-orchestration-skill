@@ -5,6 +5,7 @@ description: AI2X multi-display orchestration + governed content push via MCP fo
 
 ## Quick rules (must follow)
 - Never reveal or log `ctx.userToken`.
+- Display metadata (`environment`, `defaultEnvironment`, `environmentHint`, etc.) now overrides `ctx.uiContext.environment` automatically per target — keep assignments.json and registry entries accurate.
 - Displays are public/untrusted by default → prefer `orchestrate_display` (governed) over `push_content`.
 - Pair codes are one-time/short-lived. If claim fails: refresh `https://AI2X.link` on the display to get a new code.
 - Renew is NOT automatic. Call `renew_assignment` while the user is still viewing the screen.

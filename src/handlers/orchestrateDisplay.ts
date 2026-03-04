@@ -1,15 +1,78 @@
-import type { RuntimeContext } from "../types/index.js";
+import type { NormalizedDisplay, RuntimeContext } from "../types/index.js";
 import { orchestrateDisplay as callOrchestrate } from "../mcp/tools.js";
 import { sanitizeOrchestrateDisplayInput } from "../governance/sanitizer.js";
+import { listDisplaysHandler } from "./listDisplays.js";
+import { applyEnvironmentToContext, strictestEnvironment } from "../utils/environment.js";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function collectStrings(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => (typeof item === "string" ? item.trim() : ""))
+      .filter((v) => !!v);
+  }
+  if (typeof value === "string" && value.trim()) return [value.trim()];
+  return [];
+}
+
+function findDisplayByNickname(displays: NormalizedDisplay[], nickname: string) {
+  const normalized = nickname.trim().toLowerCase();
+  return displays.find((d) => d.nickname.trim().toLowerCase() === normalized);
+}
+
+function deriveEnvironmentForInput(
+  ctx: RuntimeContext,
+  displays: NormalizedDisplay[],
+  rawInput: Record<string, unknown>
+) {
+  const ids = new Set<string>();
+  const names = new Set<string>();
+
+  collectStrings((rawInput as any).targetAssignmentIds).forEach((id) => ids.add(id));
+  collectStrings((rawInput as any).targetAssignmentId).forEach((id) => ids.add(id));
+  collectStrings((rawInput as any).targetNicknames).forEach((name) => names.add(name));
+  collectStrings((rawInput as any).targetNickname).forEach((name) => names.add(name));
+
+  const envs: Array<NormalizedDisplay["environment"]> = [];
+  ids.forEach((id) => {
+    const display = displays.find((d) => d.assignmentId === id);
+    if (display?.environment) envs.push(display.environment);
+  });
+
+  if (!envs.length) {
+    names.forEach((name) => {
+      const display = findDisplayByNickname(displays, name);
+      if (display?.environment) envs.push(display.environment);
+    });
+  }
+
+  if (!envs.length && ctx.uiContext?.requestedDisplayNickname) {
+    const display = findDisplayByNickname(displays, ctx.uiContext.requestedDisplayNickname);
+    if (display?.environment) envs.push(display.environment);
+  }
+
+  if (!envs.length && displays.length === 1 && displays[0].environment) {
+    envs.push(displays[0].environment);
+  }
+
+  return strictestEnvironment(envs);
 }
 
 export async function orchestrate_display(
   ctx: RuntimeContext,
   input: Record<string, unknown>
 ) {
+  let displays: NormalizedDisplay[] = [];
+  try {
+    const listed = await listDisplaysHandler(ctx);
+    displays = listed.displays || [];
+  } catch {
+    displays = [];
+  }
+
   // If caller passes a sequence, treat this as a template-rotation plan.
   const seq = (input as any).sequence;
   const intervalMsRaw = (input as any).intervalMs;
@@ -56,7 +119,9 @@ export async function orchestrate_display(
       delete (merged as any).intervalMs;
       delete (merged as any).intervalSeconds;
 
-      const sanitized = sanitizeOrchestrateDisplayInput(ctx, merged);
+      const envForStep = deriveEnvironmentForInput(ctx, displays, merged);
+      const ctxForStep = applyEnvironmentToContext(ctx, envForStep);
+      const sanitized = sanitizeOrchestrateDisplayInput(ctxForStep, merged);
       if (!sanitized.ok) {
         return {
           ok: false,
@@ -65,7 +130,7 @@ export async function orchestrate_display(
         };
       }
 
-      const result = await callOrchestrate(ctx, sanitized.input);
+      const result = await callOrchestrate(ctxForStep, sanitized.input);
       const ok = !!(result as any)?.ok;
       const delivered = (result as any)?.delivered;
       results.push({ index: i, templateId: String((step as any)?.templateId || ""), ok, delivered, result });
@@ -88,9 +153,11 @@ export async function orchestrate_display(
   }
 
   // Single push
-  const sanitized = sanitizeOrchestrateDisplayInput(ctx, input);
+  const envForInput = deriveEnvironmentForInput(ctx, displays, input);
+  const ctxForInput = applyEnvironmentToContext(ctx, envForInput);
+  const sanitized = sanitizeOrchestrateDisplayInput(ctxForInput, input);
   if (!sanitized.ok) return sanitized;
 
-  const result = await callOrchestrate(ctx, sanitized.input);
+  const result = await callOrchestrate(ctxForInput, sanitized.input);
   return { ok: true, tool: "orchestrateDisplay", result };
 }

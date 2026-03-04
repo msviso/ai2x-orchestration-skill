@@ -1,4 +1,6 @@
-﻿export type RuntimeContext = {
+﻿export type EnvironmentSetting = "unknown" | "private" | "shared" | "public";
+
+export type RuntimeContext = {
   requestId: string;
   ownerScope: { tenantId: string; userId: string };
   userToken: string;
@@ -8,7 +10,7 @@
     locale?: string;
     timezone?: string;
     requestedDisplayNickname?: string;
-    environment?: "unknown" | "private" | "shared" | "public";
+    environment?: EnvironmentSetting;
   };
 };
 
@@ -18,7 +20,14 @@ export type NormalizedDisplay = {
   nickname: string;
   status?: string;
   leaseExpiresAt?: string;
+  environment?: EnvironmentSetting;
   capabilities?: Record<string, unknown>;
+};
+
+export type ResolvedTarget = {
+  assignmentId: string;
+  nickname?: string;
+  environment?: EnvironmentSetting;
 };
 
 export type ContentJob = {

@@ -15,7 +15,8 @@ describe("normalizeDisplays", () => {
             deviceId: "d-123",
             nickname: "Lobby-1",
             status: "online",
-            trustTier: "secure"
+            trustTier: "secure",
+            assignmentMeta: { defaultEnvironment: "private" }
           }
         ]
       },
@@ -26,6 +27,7 @@ describe("normalizeDisplays", () => {
     expect(output.length).toBe(1);
     expect(output[0].assignmentId).toBe("a-123");
     expect(output[0].nickname).toBe("Lobby-1");
+    expect(output[0].environment).toBe("private");
 
     const validation = validateSchemaById("display", output[0]);
     expect(validation.ok).toBe(true);

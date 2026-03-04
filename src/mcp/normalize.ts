@@ -1,9 +1,58 @@
-﻿import type { NormalizedDisplay } from "../types/index.js";
+﻿import type { EnvironmentSetting, NormalizedDisplay } from "../types/index.js";
+import { coerceEnvironment } from "../utils/environment.js";
 
 type ListDisplaysResult = {
   devices?: Array<Record<string, unknown>>;
   count?: number;
 };
+
+const ENVIRONMENT_HINT_KEYS = [
+  "environment",
+  "defaultEnvironment",
+  "environmentHint",
+  "environmentTag",
+  "deploymentEnvironment",
+  "locationEnvironment"
+];
+
+const NESTED_ENV_SOURCES = [
+  "assignment",
+  "assignmentMeta",
+  "deviceMeta",
+  "metadata",
+  "capabilities"
+];
+
+function coerceFromHint(value: unknown): EnvironmentSetting | undefined {
+  const direct = coerceEnvironment(value);
+  if (direct) return direct;
+  if (value && typeof value === "object") {
+    const container = value as Record<string, unknown>;
+    const inner = container.value ?? container.name ?? container.label;
+    return coerceEnvironment(inner);
+  }
+  return undefined;
+}
+
+function extractEnvironment(device: Record<string, unknown>): EnvironmentSetting | undefined {
+  const sources: Array<unknown> = [device];
+  for (const key of NESTED_ENV_SOURCES) {
+    const candidate = (device as Record<string, unknown>)[key];
+    if (candidate) sources.push(candidate);
+  }
+
+  for (const source of sources) {
+    if (!source || typeof source !== "object") continue;
+    const scoped = source as Record<string, unknown>;
+    for (const key of ENVIRONMENT_HINT_KEYS) {
+      if (!(key in scoped)) continue;
+      const env = coerceFromHint(scoped[key]);
+      if (env) return env;
+    }
+  }
+
+  return undefined;
+}
 
 export function normalizeDisplay(device: Record<string, unknown>): NormalizedDisplay | null {
   const assignmentId = String(device.assignmentId || "").trim();
@@ -15,6 +64,7 @@ export function normalizeDisplay(device: Record<string, unknown>): NormalizedDis
   const status = typeof device.status === "string" ? device.status : undefined;
   const leaseExpiresAt =
     typeof device.leaseExpiresAt === "string" ? device.leaseExpiresAt : undefined;
+  const environment = extractEnvironment(device);
 
   const capabilities: Record<string, unknown> = {};
   const capKeys = [
@@ -38,6 +88,7 @@ export function normalizeDisplay(device: Record<string, unknown>): NormalizedDis
     nickname,
     status,
     leaseExpiresAt,
+    environment,
     capabilities: Object.keys(capabilities).length ? capabilities : undefined
   } as NormalizedDisplay;
 }
