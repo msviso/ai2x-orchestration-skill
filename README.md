@@ -1,16 +1,16 @@
 # AI2X Multi-Display Skill (ai2x)
 
 ## Audience & Scope Notice
-This README is for internal & beta users. It documents the AI2X skill behavior and usage. For end‑users, refer to **SKILL.md**. This repository contains the canonical implementation and examples.
+本 README 專給內部與 Beta 伴侶使用，聚焦 AI2X skill 的行為、schema 與操作守則。若需要面向終端使用者的說明，請改看 **SKILL.md**。此 repository 為唯一的 canonical 實作與範例來源。
 
 ## Version & Release Status
-Current branch is **v0.x** (Private / Closed Beta). APIs, schemas, and examples may change without notice until **v1.0**. Canonical schemas and examples live in this repo.
+目前維持 **v0.x**（Private / Closed Beta）。在 **v1.0** 之前，API、schema 與範例都可能隨時調整；請以此 repo 為準並定期更新。
 
 ## Private Beta Notice
-This skill is beta software. API behavior and schema details may change. There is no SLA for beta releases.
+AI2X skill 仍屬 beta 軟體，尚未提供 SLA。所有界面／範本皆可能更動，請勿將此版本用於需長期穩定支援的環境。
 
 ## Copyright & Ownership
-© Microsense Vision Co., Ltd. This repository contains the official AI2X skill implementation and reference materials.
+© Microsense Vision Co., Ltd. 此 repo 為官方授權的 AI2X skill 來源，內容僅供授權對象於測試或合作場景使用。
 AI2X is a deterministic, schema-governed skill package that exposes OpenClaw tools for display discovery, content delivery, and lifecycle management:
 - `list_displays` for display discovery
 - `help` for onboarding guidance, pairing steps, and support details
@@ -73,25 +73,26 @@ Reference: www.msviso.com
 
 Microsense Vision positions the display as a presentation surface, not a private inbox. This skill keeps full details in Microsense Vision AI Workspace and pushes only governed summaries to screens.
 
-## Demo Video
-https://youtu.be/veV3vu8Kfys
+## Access & Token Request
+AI2X skill 需搭配 MCP access token。請在執行前透過以下任一管道提出申請或續期：
+- Email：allan@msviso.com / contact@ai2xlab.com
+
+申請郵件建議包含：
+1. 主體資訊：公司名稱＋統編；若為個人請註明「個人使用」。
+2. 聯絡方式：至少一種（Email、Telegram、WhatsApp、X、LinkedIn 皆可）。
+3. 使用情境：預計操作的裝置/顯示器數量、場域與核心 use case（demo、內部看板、活動播報⋯）。
+4. 技術窗口：若有協作工程師或代理人，請附姓名與聯絡方式方便授權與追蹤。
+
+核可後會提供 token 配額與 MCP 設定說明。如需加急或企業部署，記得在信中註記時程需求。
 
 ## Quick Start
 ```bash
-git clone https://github.com/msviso/ai2x-orchestration-skill.git
-cd ai2x-orchestration-skill
 pnpm install
 pnpm test
 ```
 
-## Direct Download (prebuilt)
-We provide a ready-to-use release archive. Download the latest `ai2x-skill-release.tgz` from GitHub Releases and extract it.
-
-```bash
-tar -xzf ai2x-skill-release.tgz
-```
-
-See `docs/OPENCLAW_USER_CASES.md` for OpenClaw usage examples.
+### Full Usage Guide
+想看逐範本範例與中文教學，請參考 [docs/USAGE_GUIDE.md](docs/USAGE_GUIDE.md)。
 
 ## orchestrateDisplay Quick Start (Preferred)
 ~~~json
@@ -141,6 +142,14 @@ Push YouTube (FULL URL only):
 ```bash
 node dist/bin/ai2x.js push-content --ctx examples/ctx.sample.json --job examples/job.youtube.json
 ```
+
+### Reference demo clips (YouTube)
+快速驗證 `youtube.v2` 時，可直接改用以下公開影片 URL：
+- AI2X Concept Demo — https://youtu.be/veV3vu8Kfys
+- Explain about the AI2X — https://youtu.be/oXdx0CCrN-s
+- hTC Vive Glasses showcase — https://youtu.be/OWeaUTQ5JJ0?si=b2lFhRnobTZeQtBW
+
+這些片段方便在展示或驗證流程中快速替換。
 
 Renew assignment (10 minutes target). Reminder: renew before expiry.
 ```bash
@@ -249,6 +258,9 @@ Allowlisted templates for `push_content`:
 - Prefer orchestrateDisplay by default; use push_content only for legacy/manual override.
 
 Minimal imageGallery.v1 example (grid):
+
+> 範例圖片可直接引用 [ServiceStack Hero image collection](https://github.com/ServiceStack/images/tree/master/hero) 中的靜態素材（均為直接資產 URL，符合「No Redirect」規則），方便快速測試 image.v2 或 imageGallery.v1。
+
 ~~~json
 {
   "target": { "assignmentId": "as_1234567890" },
@@ -275,10 +287,156 @@ Minimal cards.v2 example:
   "op": "REPLACE",
   "templateId": "cards.v2",
   "data": {
-    "title": "Daily Highlights",
+    "title": "Weather Highlights",
     "items": [
-      { "title": "Key Update", "description": "Short summary text.", "meta": "Update 10:00" }
+      { "title": "Now", "description": "Cloudy 15℃", "meta": "Humidity 88% | ENE 15km/h" }
     ]
+  }
+}
+~~~
+
+### Rich template payloads（list.v2 / kv.v2 / cards.v2）
+
+#### list.v2 — Field Ops Runbook
+- 檔案：[`examples/orchestrateDisplay.list.v2.execute.json`](examples/orchestrateDisplay.list.v2.execute.json)
+- 場景：支援一線工程團隊在 Day 0/Day 1 快速過目所有任務，混合 label/desc 與純文字備忘。
+~~~json
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "list.v2",
+    "payload": {
+      "title": "AI2X Field Ops — Day 0 / Day 1 Runbook",
+      "items": [
+        {
+          "label": "08:00 工程進場",
+          "desc": "兩組技師到 3F/7F 會議室，接電後回報 Slack #ops-live"
+        },
+        {
+          "label": "09:10 網路巡檢",
+          "desc": "測試主線/備援 5G 連線，記錄 jitter 與 failover 結果"
+        },
+        {
+          "label": "10:45 媒體預載",
+          "desc": "orchestrateDisplay 預載最新 hero loop 與 keynote deck，確認 checksum"
+        },
+        "聯絡鏈：Weichien → Shelby → 外包工程（佳欣）",
+        {
+          "label": "13:30 試播彩排",
+          "desc": "與主持人同步拆解 script，三個 slot 各跑一次"
+        },
+        {
+          "label": "15:00 場外傳輸",
+          "desc": "開啟北投備援點，確認 cross-site push < 3s"
+        },
+        {
+          "label": "17:20 Day 0 Wrap",
+          "desc": "收斂異常與備援需求，寫入 Ops doc"
+        },
+        {
+          "label": "07:40 Day 1 健康檢查",
+          "desc": "檢查 overnight log、lease 剩餘時間與 ticker 更新"
+        }
+      ]
+    }
+  }
+}
+~~~
+
+#### kv.v2 — Operations Snapshot
+- 檔案：[`examples/orchestrateDisplay.kv.v2.execute.json`](examples/orchestrateDisplay.kv.v2.execute.json)
+- 場景：一次整理 7 組營運指標，突出區間與責任人。
+~~~json
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "kv.v2",
+    "payload": {
+      "title": "Operations Snapshot — 2025/02/05 18:00",
+      "items": [
+        { "key": "Displays Online", "value": "18 / 18 (100%)" },
+        { "key": "Content Push (24h)", "value": "74 ops | 0 failed" },
+        { "key": "Avg Render Latency", "value": "240 ms (p95 410 ms)" },
+        { "key": "Viewer Residency", "value": "7m42s (↑18% w/w)" },
+        { "key": "Auto-Renew", "value": "每 60 分鐘 | 下次 19:05" },
+        { "key": "Next Maintenance", "value": "02/07 09:00-11:00" },
+        { "key": "On-call", "value": "Shelby (Teams / ext. 8821)" }
+      ]
+    }
+  }
+}
+~~~
+
+#### cards.v2 — Showcase Highlights
+- 檔案：[`examples/orchestrateDisplay.cards.v2.execute.json`](examples/orchestrateDisplay.cards.v2.execute.json)
+- 場景：多場域展示牆，搭配描述、場地需求與圖片，適合 demo 內容牆。
+~~~json
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "cards.v2",
+    "payload": {
+      "title": "AI2X Showcase Highlights — Q1 Circuit",
+      "items": [
+        {
+          "title": "零售分析島",
+          "description": "三面窄邊框同步播放客流熱區、即時轉換率與補貨建議，支援現場 IoT sensor 串流。",
+          "meta": "展區：台北世貿 A12 | 120V / 10A",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Monterosso_from_the_hill.JPG"
+        },
+        {
+          "title": "製造產線控台",
+          "description": "stack.v2 內建告警、SPC 趨勢與換線倒數，並提供語音指令／badge scan 雙重確認。",
+          "meta": "客戶：金屬加工廠 | SLA < 2 分鐘",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Sunrise_over_the_Annapurna_massif_near_Poon_Hill%2C_Nepal.jpg"
+        },
+        {
+          "title": "跨區指揮中心",
+          "description": "雙 86 吋螢幕播放活動 KPI、票務漏斗與現場攝影即時剪輯，搭配 ticker 提醒進場節奏。",
+          "meta": "場域：南港展覽館二館 | 08:00-20:00 值班",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Hallstatt_300.jpg"
+        },
+        {
+          "title": "智慧工地儀表",
+          "description": "cards + chart 交錯顯示能耗、設備稼動率與 ESG 指標，可提醒維修人員打卡。",
+          "meta": "區域：桃園新廠 | OTA 累積 1.2TB",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Moraine_Lake_17092005.jpg"
+        }
+      ]
+    }
+  }
+}
+~~~
+
+### Weather CSV sample for chart.v2
+- 檔案：[`examples/weather_timeseries.csv`](examples/weather_timeseries.csv)
+- 內容：2025/02/05 06:00-20:00（UTC+8）逐時氣溫、相對溼度、露點與降雨量，利於雙軸折線或柱狀示範。
+- 用途：demo `chart.v2` 時，可直接讀取 CSV（timestamp, temperature_c, humidity_pct, dew_point_c, precip_mm）。
+
+~~~json
+{
+  "tool": "orchestrateDisplay",
+  "input": {
+    "targetAssignmentIds": ["as_123"],
+    "mode": "execute",
+    "templateId": "chart.v2",
+    "payload": {
+      "type": "line",
+      "title": "Xindian Weather Trend",
+      "x": {
+        "labels": ["06:00", "07:00", "08:00", "09:00", "10:00", "11:00"]
+      },
+      "series": [
+        { "name": "Temperature °C", "data": [16.8, 17.3, 18.2, 19.6, 21.1, 22.4] },
+        { "name": "Humidity %", "data": [78, 76, 73, 69, 64, 60], "axis": "right" }
+      ]
+    }
   }
 }
 ~~~

@@ -5,9 +5,38 @@
     "mode": "execute",
     "templateId": "list.v2",
     "payload": {
-      "title": "Next Steps",
-      "items": ["Ship v2"]
+      "title": "AI2X Field Ops — Day 0 / Day 1 Runbook",
+      "items": [
+        {
+          "label": "08:00 工程進場",
+          "desc": "兩組技師到 3F/7F 會議室，接電後回報 Slack #ops-live"
+        },
+        {
+          "label": "09:10 網路巡檢",
+          "desc": "測試主線/備援 5G 連線，記錄 jitter 與 failover 結果"
+        },
+        {
+          "label": "10:45 媒體預載",
+          "desc": "orchestrateDisplay 預載最新 hero loop 與 keynote deck，確認 checksum"
+        },
+        "聯絡鏈：Weichien → Shelby → 外包工程（佳欣）",
+        {
+          "label": "13:30 試播彩排",
+          "desc": "與主持人同步拆解 script，三個 slot 各跑一次"
+        },
+        {
+          "label": "15:00 場外傳輸",
+          "desc": "開啟北投備援點，確認 cross-site push < 3s"
+        },
+        {
+          "label": "17:20 Day 0 Wrap",
+          "desc": "收斂異常與備援需求，寫入 Ops doc"
+        },
+        {
+          "label": "07:40 Day 1 健康檢查",
+          "desc": "檢查 overnight log、lease 剩餘時間與 ticker 更新"
+        }
+      ]
     }
   }
 }
-

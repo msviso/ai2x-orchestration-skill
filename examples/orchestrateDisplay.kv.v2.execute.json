@@ -5,11 +5,16 @@
     "mode": "execute",
     "templateId": "kv.v2",
     "payload": {
-      "title": "Key Metrics",
+      "title": "Operations Snapshot — 2025/02/05 18:00",
       "items": [
-        { "key": "Queue", "value": "3" }
+        { "key": "Displays Online", "value": "18 / 18 (100%)" },
+        { "key": "Content Push (24h)", "value": "74 ops | 0 failed" },
+        { "key": "Avg Render Latency", "value": "240 ms (p95 410 ms)" },
+        { "key": "Viewer Residency", "value": "7m42s (↑18% w/w)" },
+        { "key": "Auto-Renew", "value": "每 60 分鐘 | 下次 19:05" },
+        { "key": "Next Maintenance", "value": "02/07 09:00-11:00" },
+        { "key": "On-call", "value": "Shelby (Teams / ext. 8821)" }
       ]
     }
   }
 }
-

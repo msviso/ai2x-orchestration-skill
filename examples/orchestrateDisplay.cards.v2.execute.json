@@ -1,14 +1,36 @@
-﻿{
+{
   "tool": "orchestrateDisplay",
   "input": {
     "targetAssignmentIds": ["as_123"],
     "mode": "execute",
     "templateId": "cards.v2",
     "payload": {
-      "title": "Weather Highlights",
+      "title": "AI2X Showcase Highlights — Q1 Circuit",
       "items": [
-        { "title": "Now", "description": "Cloudy 15C", "meta": "Humidity 88% | ENE 15km/h" },
-        { "title": "Tue", "description": "Showers 13-14C", "meta": "Rain 100%" }
+        {
+          "title": "零售分析島",
+          "description": "三面窄邊框同步播放客流熱區、即時轉換率與補貨建議，支援現場 IoT sensor 串流。",
+          "meta": "展區：台北世貿 A12 | 120V / 10A",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Monterosso_from_the_hill.JPG"
+        },
+        {
+          "title": "製造產線控台",
+          "description": "stack.v2 內建告警、SPC 趨勢與換線倒數，並提供語音指令／badge scan 雙重確認。",
+          "meta": "客戶：金屬加工廠 | SLA < 2 分鐘",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Sunrise_over_the_Annapurna_massif_near_Poon_Hill%2C_Nepal.jpg"
+        },
+        {
+          "title": "跨區指揮中心",
+          "description": "雙 86 吋螢幕播放活動 KPI、票務漏斗與現場攝影即時剪輯，搭配 ticker 提醒進場節奏。",
+          "meta": "場域：南港展覽館二館 | 08:00-20:00 值班",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Hallstatt_300.jpg"
+        },
+        {
+          "title": "智慧工地儀表",
+          "description": "cards + chart 交錯顯示能耗、設備稼動率與 ESG 指標，可提醒維修人員打卡。",
+          "meta": "區域：桃園新廠 | OTA 累積 1.2TB",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Moraine_Lake_17092005.jpg"
+        }
       ]
     }
   }
